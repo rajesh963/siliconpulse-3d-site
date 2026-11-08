@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipxact:component xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014">
+  <ipxact:vendor>ExampleVendor</ipxact:vendor>
+  <ipxact:library>Platform</ipxact:library>
+  <ipxact:name>cpu_subsystem</ipxact:name>
+  <ipxact:version>1.0.0</ipxact:version>
+  <ipxact:busInterfaces>
+    <ipxact:busInterface>
+      <ipxact:name>M_AXI</ipxact:name>
+      <ipxact:busType vendor="amba" library="amba4" name="AXI4" version="1.0"/>
+      <ipxact:master/>
+      <ipxact:bitsWidth>64</ipxact:bitsWidth>
+      <ipxact:clock>F_CPU</ipxact:clock>
+    </ipxact:busInterface>
+  </ipxact:busInterfaces>
+</ipxact:component>

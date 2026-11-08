@@ -1,0 +1,200 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SiliconPulse architecture diagram",
+  "type": "object",
+  "required": [
+    "blocks"
+  ],
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "width": {
+      "type": "number"
+    },
+    "height": {
+      "type": "number"
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "x",
+          "y",
+          "w",
+          "h"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "w": {
+            "type": "number"
+          },
+          "h": {
+            "type": "number"
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "blocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "kind",
+          "x",
+          "y",
+          "w",
+          "h"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "sublabel": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "cpu",
+              "bus",
+              "crossbar",
+              "bridge",
+              "memory",
+              "peripheral",
+              "accelerator",
+              "io",
+              "security",
+              "clock",
+              "debug",
+              "group"
+            ]
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "w": {
+            "type": "number"
+          },
+          "h": {
+            "type": "number"
+          },
+          "color": {
+            "type": "string"
+          },
+          "moduleId": {
+            "type": "string"
+          },
+          "specRef": {
+            "type": "string"
+          },
+          "badges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "details": {
+            "type": "string"
+          },
+          "internal": {
+            "$ref": "#"
+          }
+        }
+      }
+    },
+    "wires": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "points": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "busType": {
+            "type": "string"
+          },
+          "width": {
+            "type": "number"
+          },
+          "clock": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "dashed": {
+            "type": "boolean"
+          },
+          "arrow": {
+            "enum": [
+              "end",
+              "both",
+              "none"
+            ]
+          },
+          "details": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

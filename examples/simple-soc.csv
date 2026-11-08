@@ -1,0 +1,10 @@
+type,id,label,kind,x,y,w,h,from,to,busType,width,clock,specRef
+block,cpu,CPU,cpu,60,80,180,90,,,,,
+block,noc,System NoC,bus,60,260,820,16,,,,,
+block,ddr,DDR,memory,380,80,180,90,,,,,
+block,pcie,PCIe,io,660,80,140,90,,,,,
+block,usb,USB,io,820,80,120,90,,,,,
+wire,w0,CPU to NoC,,,,,,cpu,noc,AXI4,64,F_CPU,
+wire,w1,DDR to NoC,,,,,,ddr,noc,AXI4,64,F_MEM,
+wire,w2,PCIe to NoC,,,,,,pcie,noc,AXI4,64,F_IO,
+wire,w3,USB to NoC,,,,,,usb,noc,AXI4,32,F_IO,

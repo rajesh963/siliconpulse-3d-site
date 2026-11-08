@@ -1,0 +1,234 @@
+{
+  "schema": "socpulse.diagram.v1",
+  "title": "Example Edge SoC",
+  "subtitle": "Bring-your-own architecture sample",
+  "source": "Example diagram JSON",
+  "width": 1000,
+  "height": 620,
+  "groups": [
+    {
+      "id": "compute",
+      "label": "Compute",
+      "x": 40,
+      "y": 50,
+      "w": 280,
+      "h": 150,
+      "color": "#22d3ee"
+    },
+    {
+      "id": "memory",
+      "label": "Memory",
+      "x": 340,
+      "y": 50,
+      "w": 260,
+      "h": 150,
+      "color": "#3b82f6"
+    },
+    {
+      "id": "io",
+      "label": "IO",
+      "x": 620,
+      "y": 50,
+      "w": 320,
+      "h": 150,
+      "color": "#f472b6"
+    }
+  ],
+  "blocks": [
+    {
+      "id": "cpu",
+      "label": "CPU",
+      "sublabel": "application core",
+      "kind": "cpu",
+      "x": 60,
+      "y": 80,
+      "w": 180,
+      "h": 90,
+      "color": "#22d3ee",
+      "badges": [
+        "AXI"
+      ],
+      "specRef": "example \u00a71",
+      "internal": {
+        "title": "CPU core internals",
+        "subtitle": "Nested json-of-json example",
+        "source": "Example nested diagram",
+        "width": 800,
+        "height": 520,
+        "groups": [
+          {
+            "id": "frontend",
+            "label": "Front-end",
+            "x": 40,
+            "y": 40,
+            "w": 330,
+            "h": 160,
+            "color": "#22d3ee"
+          },
+          {
+            "id": "backend",
+            "label": "Back-end",
+            "x": 390,
+            "y": 40,
+            "w": 360,
+            "h": 160,
+            "color": "#a78bfa"
+          }
+        ],
+        "blocks": [
+          {
+            "id": "fetch",
+            "label": "Fetch",
+            "kind": "cpu",
+            "x": 60,
+            "y": 80,
+            "w": 130,
+            "h": 80,
+            "color": "#22d3ee",
+            "details": "Instruction fetch unit."
+          },
+          {
+            "id": "decode",
+            "label": "Decode",
+            "kind": "cpu",
+            "x": 210,
+            "y": 80,
+            "w": 130,
+            "h": 80,
+            "color": "#22d3ee",
+            "details": "Decode / rename."
+          },
+          {
+            "id": "execute",
+            "label": "Execute",
+            "kind": "accelerator",
+            "x": 420,
+            "y": 80,
+            "w": 140,
+            "h": 80,
+            "color": "#a78bfa",
+            "details": "ALU / FPU execution."
+          },
+          {
+            "id": "l1",
+            "label": "L1 Cache",
+            "kind": "memory",
+            "x": 580,
+            "y": 80,
+            "w": 140,
+            "h": 80,
+            "color": "#3b82f6",
+            "details": "Local instruction/data cache."
+          }
+        ],
+        "wires": [
+          {
+            "id": "f_d",
+            "from": "fetch",
+            "to": "decode",
+            "busType": "uop",
+            "width": 128,
+            "clock": "F_CPU"
+          },
+          {
+            "id": "d_e",
+            "from": "decode",
+            "to": "execute",
+            "busType": "uop",
+            "width": 128,
+            "clock": "F_CPU"
+          },
+          {
+            "id": "e_l1",
+            "from": "execute",
+            "to": "l1",
+            "busType": "load/store",
+            "width": 64,
+            "clock": "F_CPU"
+          }
+        ],
+        "notes": [
+          "Nested module example: click CPU, then Open internal module."
+        ]
+      }
+    },
+    {
+      "id": "noc",
+      "label": "System NoC",
+      "kind": "bus",
+      "x": 60,
+      "y": 260,
+      "w": 820,
+      "h": 16,
+      "color": "#fbbf24"
+    },
+    {
+      "id": "ddr",
+      "label": "DDR",
+      "sublabel": "LPDDR5",
+      "kind": "memory",
+      "x": 380,
+      "y": 80,
+      "w": 180,
+      "h": 90,
+      "color": "#3b82f6"
+    },
+    {
+      "id": "pcie",
+      "label": "PCIe",
+      "kind": "io",
+      "x": 660,
+      "y": 80,
+      "w": 140,
+      "h": 90,
+      "color": "#f472b6"
+    },
+    {
+      "id": "usb",
+      "label": "USB",
+      "kind": "io",
+      "x": 820,
+      "y": 80,
+      "w": 120,
+      "h": 90,
+      "color": "#f472b6"
+    }
+  ],
+  "wires": [
+    {
+      "id": "cpu-noc",
+      "from": "cpu",
+      "to": "noc",
+      "busType": "AXI4",
+      "width": 64,
+      "clock": "F_CPU"
+    },
+    {
+      "id": "ddr-noc",
+      "from": "ddr",
+      "to": "noc",
+      "busType": "AXI4",
+      "width": 64,
+      "clock": "F_MEM"
+    },
+    {
+      "id": "pcie-noc",
+      "from": "pcie",
+      "to": "noc",
+      "busType": "AXI4",
+      "width": 64,
+      "clock": "F_IO"
+    },
+    {
+      "id": "usb-noc",
+      "from": "usb",
+      "to": "noc",
+      "busType": "AXI4",
+      "width": 32,
+      "clock": "F_IO"
+    }
+  ],
+  "notes": [
+    "This example is a schema reference, not a real product."
+  ]
+}
